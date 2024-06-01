@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.background_img{
+    background-image: url(/src/assets/Images/background_img_siginin.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
