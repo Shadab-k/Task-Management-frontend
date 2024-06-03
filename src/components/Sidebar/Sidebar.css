@@ -1,29 +1,39 @@
 .sidebar {
-    position: fixed;
-    top: 58px; /* Adjust based on your navbar height */
-    left: 0;
-    width: 250px;
-    height: calc(100% - 56px); /* Adjust based on your navbar height */
-    background-color: #f8f9fa;
-    padding-top: 20px;
-    transition: transform 0.3s ease;
-    transform: translateX(0);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #10223c;
+  padding-top: 20px;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+  position: relative;
   }
-  
+  .sidebar .title_head h4{
+    color: #FFF;
+  }
   .sidebar .offcanvas-body {
     padding-top: 0;
   }
   
-  .list_items ul {
+  .sidebar .list_items ul {
     list-style-type: none;
     padding: 0;
   }
   
-  .list_items li {
+  .sidebar .list_items li {
     padding: 10px 20px;
     cursor: pointer;
+    border-top: 1px solid #27314c;
   }
-  
+  .sidebar .list_items li a{
+    color: #e6e6e6;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .sidebar .list_items li a:hover{
+    color: #d63384;
+  }
   .content {
     margin-left: 250px;
     padding: 20px;

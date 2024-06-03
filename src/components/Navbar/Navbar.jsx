@@ -1,26 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import Sidebar from "../Sidebar/Sidebar";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
-  return (
-    <>
-      <nav className="navbar navbar-light nav-color">
-        <div className="container-fluid">
-          <h1 className="navbar-brand">Task Management</h1>
+  const token = useSelector((state) => state.AuthSlice.token);
+  const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
-          <form className="d-flex">
-            <Link to="/project-details">
-              <button className="btn btn-danger" type="submit">
-                Logout
-              </button>
-            </Link>
-          </form>
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/getuser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": `Bearer ${token}`,
+        },
+      });
+      const json = await res.json();
+      setName(json.name);
+      console.log("User data:", json);
+      console.log("Name of the User:", json.name);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchData();
+    }
+  }, [token]);  
+
+  const handleOnLogout = () => {
+    dispatch({ type: "Auth/SET_TOKEN", payload: "" });
+  };
+
+  return (
+    <nav className="navbar navbar-light nav-color w-100%">
+      <div className="container-fluid">
+        <h1 className="navbar-brand">Task Management</h1>
+
+        <div>
+          <p className="user-heading">Welcome {name}</p>
         </div>
-      </nav>
-      <Sidebar />
-    </>
+
+        <form className="d-flex">
+          <button
+            className="btn btn-danger"
+            onClick={handleOnLogout}
+            type="button"
+          >
+            Logout
+          </button>
+        </form>
+      </div>
+    </nav>
   );
 };
 

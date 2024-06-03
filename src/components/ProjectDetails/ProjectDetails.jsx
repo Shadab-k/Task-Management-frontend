@@ -1,43 +1,17 @@
-import React, { useEffect, useState } from "react";
-import "./ProjectDetails.css"
+import React from "react";
+import "./ProjectDetails.css"; // Import the CSS file
 
-const ProjectDetails = () => {
-  const [credentials, setCredentials] = useState([]);
-  const [heading, setHeading] = useState("");
-
-  const fetchedData = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/project-form-details`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await res.json();
-      setCredentials(data);
-      setHeading(data[0].project_name);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  console.log("Credetials", credentials);
-
-  useEffect(() => {
-    fetchedData();
-  }, []);
+const ProjectDetails = ({ selectedProject }) => {
+  if (!selectedProject) {
+    return <div>Please select a project from the sidebar.</div>;
+  }
 
   return (
     <>
-   
       <div className="container mt-5">
         <h2>
-          {" "}
-          Project Name : <span className="text-success">{heading}</span>
+          <span className="text-success">{selectedProject.project_name}</span>
         </h2>
-
         <table className="table table-striped table-bordered">
           <thead className="thead-dark">
             <tr>
@@ -49,29 +23,23 @@ const ProjectDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {credentials.length !== 0 ? (
-              credentials.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.project_name}</td>
-                  <td>
-                    {new Date(item.start_date).toLocaleDateString("en-GB", {
-                      timeZone: "UTC",
-                    })}
-                  </td>
-
-                  <td>
-                    {new Date(item.end_date).toLocaleDateString("en-GB", {
-                      timeZone: "UTC",
-                    })}
-                  </td>
-
-                  <td>{item.developer}</td>
-                  <td>{item.status}</td>
-                </tr>
-              ))
-            ) : (
-              <h3 className="my-2 text-danger">No data to display</h3>
-            )}
+            <tr>
+              <td>{selectedProject.project_name}</td>
+              <td>
+                {new Date(selectedProject.start_date).toLocaleDateString(
+                  "en-GB",
+                  { timeZone: "UTC" }
+                )}
+              </td>
+              <td>
+                {new Date(selectedProject.end_date).toLocaleDateString(
+                  "en-GB",
+                  { timeZone: "UTC" }
+                )}
+              </td>
+              <td>{selectedProject.developer}</td>
+              <td>{selectedProject.status}</td>
+            </tr>
           </tbody>
         </table>
       </div>

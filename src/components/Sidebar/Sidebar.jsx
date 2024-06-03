@@ -1,9 +1,35 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 
-const Sidebar = () => {
-  const name = useSelector((state) => state.NameSlice.name);
+const Sidebar = ({ onSelectProject, setHasData, submittedProject }) => {
+  const [credentials, setCredentials] = useState([]);
+
+  const fetchedData = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/project-form-details`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setCredentials(data);
+      // setHasData(data.length > 0);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchedData();
+  }, []);
+
+  useEffect(() => {
+    if (submittedProject) {
+      fetchedData();
+    }
+  }, [submittedProject]);
 
   return (
     <div
@@ -14,13 +40,33 @@ const Sidebar = () => {
       style={{ visibility: "visible" }}
     >
       <div className="offcanvas-body">
+        <div className="title_head">
+         <h4>Project List</h4> 
+         
+        </div>
+
         <div className="list_items">
           <ul>
-            <li>Project List</li>
+            {credentials.length > 0 ? (
+              credentials.map((item) => (
+                <div key={item.id}>
+                  <li>
+                  <Link
+                    to="#"
+                    onClick={() => {
+                      onSelectProject(item);
+                      setHasData(true);
+                    }}
+                  >
+                    {item.project_name}
+                  </Link>
+                  </li>
+                </div>
+              ))
+            ) : (
+              <div>No data available</div>
+            )}
           </ul>
-        </div>
-        <div className="project-name">
-          <h4>{name}</h4>
         </div>
       </div>
     </div>
@@ -28,3 +74,81 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+// import React, { useEffect, useState } from "react";
+// import "./Sidebar.css";
+// import { Link } from "react-router-dom";
+
+// const Sidebar = ({ onSelectProject, setHasData, submittedProject }) => {
+//   const [credentials, setCredentials] = useState([]);
+
+//   const fetchedData = async () => {
+//     try {
+//       const res = await fetch(`http://localhost:5000/api/project-form-details`, {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+//       const data = await res.json();
+//       setCredentials(data);
+//       // setHasData(data.length > 0);
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchedData();
+//   }, []);
+
+//   useEffect(() => {
+//     if (submittedProject) {
+//       fetchedData();
+//     }
+//   }, [submittedProject]);
+
+//   return (
+//     <div
+//       className="sidebar offcanvas-start show"
+//       tabIndex="-1"
+//       id="offcanvasExample"
+//       aria-labelledby="offcanvasExampleLabel"
+//       style={{ visibility: "visible" }}
+//     >
+//       <div className="offcanvas-body">
+//         <div className="list_items">
+//           <ul>
+//             <li>Project List</li>
+//           </ul>
+//         </div>
+
+//         <div className="project-name">
+//           <ul>
+//             {credentials.length > 0 ? (
+//               credentials.map((item) => (
+//                 <div key={item.id}>
+//                   <Link
+//                     to="#"
+//                     style={{ textDecoration: "none", color: "black" }}
+//                     onClick={() => {
+//                       onSelectProject(item);
+//                       setHasData(true);
+//                     }}
+//                   >
+//                     <li>{item.project_name}</li>
+//                   </Link>
+//                 </div>
+//               ))
+//             ) : (
+//               <div>No data available</div>
+//             )}
+//           </ul>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;

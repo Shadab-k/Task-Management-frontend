@@ -1,44 +1,79 @@
-import React from "react";
-import Navbar from "../Navbar/Navbar";
-import './Signin.css'
+import React, { useState } from "react";
+import "./Signin.css";
+import { useDispatch } from "react-redux";
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`http://localhost:5000/api/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: credentials.email,
+          password: credentials.password,
+        }),
+      });
+      const json = await res.json();
+      console.log("json", json);
+      if (json.success) {
+        dispatch({ type: "Auth/SET_TOKEN", payload: json.authToken });
+      }
+    } catch (error) {
+      console.error("Invalid Credentials", error);
+    }
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
   return (
     <>
-      <Navbar />
-      <div class="container">
-        <div class="container d-flex justify-content-center my-5">
-          <form>
-            <div class="mb-3">
-              <h1 class="my-5 text-dark">Task Management</h1>
-              <label for="Email" class="form-label">
+      <div className="container">
+        <div className="container d-flex justify-content-center my-5">
+          <form onSubmit={handleOnSubmit}>
+            <div className="mb-3">
+              <h1 className="my-5 text-dark">Task Management</h1>
+              <label htmlFor="Email" className="form-label">
                 Email address
               </label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="email"
                 name="email"
                 aria-describedby="emailHelp"
-                value=""
+                onChange={onChange}
+                value={credentials.email}
               />
-              <div id="email" class="form-text">
+              <div id="email" className="form-text">
                 We'll never share your email with anyone else.
               </div>
             </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 name="password"
                 id="password"
-                value=""
+                onChange={onChange}
+                value={credentials.password}
+                autoComplete="off"
               />
             </div>
-            <button type="submit" class="my-3 btn btn-primary">
+            <button
+              type="submit"
+              className="my-3 btn btn-primary"
+            >
               Signin
             </button>
           </form>

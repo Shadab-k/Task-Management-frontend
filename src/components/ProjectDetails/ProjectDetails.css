@@ -1,34 +1,33 @@
-/* ProjectDetails.css */
-
 .container {
     margin-top: 50px;
-}
-
-h2 {
+  }
+  
+  h2 {
     text-align: center;
-}
-
-.table {
+  }
+  
+  .table {
     margin: auto;
     width: 80%;
-}
-
-.text-success {
+    text-align: center;
+  }
+  
+  .text-success {
     color: green;
-}
-
-.text-danger {
+  }
+  
+  .text-danger {
     color: red;
-}
-
-/* Adjusting the <i> element */
-.table i {
+  }
+  
+  .table i {
     margin-left: 10px; /* Adjust as needed */
-}
-
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     /* Responsive adjustments */
     .table i {
-        margin-left: 5px; /* Adjust as needed for smaller screens */
+      margin-left: 5px; /* Adjust as needed for smaller screens */
     }
-}
+  }
+  

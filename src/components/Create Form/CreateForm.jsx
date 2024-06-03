@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import ProjectDetails from "../ProjectDetails/ProjectDetails"; 
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import ProjectDetails from "../ProjectDetails/ProjectDetails";
+import Sidebar from "../Sidebar/Sidebar";
+import "./CreateForm.css";
 
 const CreateForm = () => {
-  const dispatch = useDispatch()
-  const name = useSelector((state) => state.NameSlice.name);
-  
+ 
   const [showModal, setShowModal] = useState(false);
-  const [submittedProject, setSubmittedProject] = useState(null); // State to store submitted project
-  // const navigate = useNavigate();
+  const [submittedProject, setSubmittedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [project, setProject] = useState({
     projectName: "",
     startDate: "",
     endDate: "",
     status: "",
-    developer: "", // Adding developer field
+    developer: "",
   });
+  const [hasData, setHasData] = useState(false);
 
   const developers = [
     "John Doe",
@@ -48,9 +47,10 @@ const CreateForm = () => {
 
       if (response.ok) {
         alert("Project details submitted successfully");
-        setSubmittedProject(project); // Store submitted project
-        // dispatch({ type: "Name/SET_NAME", payload: project.projectName });
+        setSubmittedProject(project);
+        // dispatch(SET_NAME(project.projectName));
         setShowModal(false);
+        setHasData(true);
       } else {
         alert("Unable to save data");
       }
@@ -59,13 +59,20 @@ const CreateForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (selectedProject) {
+      setHasData(true);
+    } else {
+      setHasData(false);
+    }
+  }, [selectedProject]);
+
   return (
     <>
-      <Navbar />
 
-      {!submittedProject && ( // Show form if project is not submitted
+      {!submittedProject && !hasData && (
         <div className="d-flex justify-content-center align-items-center create-project-btn">
-          <button className="btn-lg btn-dark " onClick={() => setShowModal(true)}>
+          <button className="btn-lg btn-dark" onClick={() => setShowModal(true)}>
             Create Project
           </button>
         </div>
@@ -179,12 +186,20 @@ const CreateForm = () => {
         </div>
       )}
 
-      {submittedProject && <ProjectDetails project={submittedProject} />} {/* Render project details component if project is submitted */}
+      {/* <div className="d-flex">
+        <Sidebar onSelectProject={setSelectedProject} setHasData={setHasData} submittedProject={submittedProject} />
+        {selectedProject && <ProjectDetails selectedProject={selectedProject} />}
+      </div> */}
     </>
   );
 };
 
 export default CreateForm;
+
+
+
+
+
 
 
 // import React, { useState } from "react";
