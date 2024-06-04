@@ -7,6 +7,13 @@ const Signin = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    if (!credentials.email) {
+      return alert("Email cannot be blank");
+    }
+    if (!credentials.password) {
+      return alert("Password cannot be blank");
+    }
+
     try {
       const res = await fetch(`http://localhost:5000/api/signin`, {
         method: "POST",
@@ -21,8 +28,26 @@ const Signin = () => {
       });
       const json = await res.json();
       console.log("json", json);
+
       if (json.success) {
         dispatch({ type: "Auth/SET_TOKEN", payload: json.authToken });
+      } else {
+        if (json.errors) {
+          // Display validation errors returned from the API
+          json.errors.forEach((error) => {
+            alert(error.msg);
+          });
+        } else if (json.error) {
+          // Display specific error messages for email and password
+          if (json.error === "Invalid email") {
+            alert("Please enter a valid email");
+          } else if (json.error === "Invalid password") {
+            alert("Please enter a valid password");
+          } else {
+            // General error message
+            alert(json.error);
+          }
+        }
       }
     } catch (error) {
       console.error("Invalid Credentials", error);
@@ -70,10 +95,7 @@ const Signin = () => {
                 autoComplete="off"
               />
             </div>
-            <button
-              type="submit"
-              className="my-3 btn btn-primary"
-            >
+            <button type="submit" className="my-3 btn btn-primary">
               Signin
             </button>
           </form>

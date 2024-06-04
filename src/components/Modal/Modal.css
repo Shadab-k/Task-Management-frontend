@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  .modal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1050; /* Ensure modal is above other content */
+    overflow: auto;
+  }
+  
+  .modal-dialog {
+    margin: 100px auto; /* Center the modal vertically */
+    max-width: 90%; /* Limit maximum width of the modal dialog */
+  }
+  
+  .modal-content {
+    width: 100%; /* Set the width of the modal content */
+    max-width: 600px; /* Maximum width for the modal content */
+    background-color: #fff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    margin: 0 auto; /* Center the modal content horizontally */
+  }
+  
+  .modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #dee2e6; /* Light border at bottom */
+  }
+  
+  .modal-title {
+    margin: 0;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  /* Form Styles */
+  form {
+    margin-bottom: 0; /* Remove default margin to avoid extra space */
+  }
+  
+  .form-label {
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .btn-dark {
+    background-color: #343a40; /* Dark background color for the button */
+    color: #fff; /* White text color */
+    display: block;
+    margin: 20px auto; /* Center the button horizontally */
+  }
+  
+  .btn-dark:hover {
+    background-color: #23272b; /* Darken background color on hover */
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #000;
+  }
+  
+  .btn-close:hover {
+    color: #000;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .modal-dialog {
+      margin: 50px auto; /* Adjust margin for smaller screens */
+    }
+  
+    .modal-content {
+      max-width: 90%; /* Adjust maximum width for smaller screens */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .modal-dialog {
+      margin: 20px auto; /* Further adjust margin for smaller screens */
+    }
+  }
+  

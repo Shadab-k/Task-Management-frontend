@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2024 at 12:44 PM
+-- Generation Time: Jun 04, 2024 at 01:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `project_details` (
   `id` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
   `project_name` varchar(255) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
@@ -42,13 +43,16 @@ CREATE TABLE `project_details` (
 -- Dumping data for table `project_details`
 --
 
-INSERT INTO `project_details` (`id`, `project_name`, `start_date`, `end_date`, `developer`, `status`, `createdAt`, `updatedAt`) VALUES
-(1, 'Nirvasa', '2023-05-23', '2023-05-23', 'Shadab', 'billable', '2024-05-31 06:01:35', '2024-05-31 06:01:35'),
-(7, 'Task Management', '2024-05-09', '2024-05-23', 'Alice Smith', 'Non-Billable', '2024-05-31 08:39:18', '2024-05-31 08:39:18'),
-(15, 'transformers', '2024-06-21', '2024-06-21', 'Alice Smith', 'Billable', '2024-06-01 10:24:35', '2024-06-01 10:24:35'),
-(21, 'Data Main ', '2024-06-21', '2024-06-27', 'John Doe', 'Billable', '2024-06-03 04:56:28', '2024-06-03 04:56:28'),
-(23, 'Express', '2024-06-07', '2024-06-24', 'Alice Smith', 'Billable', '2024-06-03 05:08:32', '2024-06-03 05:08:32'),
-(43, 'Task Management functtoin', '2024-06-03', '2024-06-22', 'Alice Smith', 'Billable', '2024-06-03 10:41:33', '2024-06-03 10:41:33');
+INSERT INTO `project_details` (`id`, `userId`, `project_name`, `start_date`, `end_date`, `developer`, `status`, `createdAt`, `updatedAt`) VALUES
+(1, 1, 'Task', '2023-05-23', '2023-05-23', 'Shadab', 'Non-billable', '2024-06-04 08:20:21', '2024-06-04 08:20:21'),
+(4, 2, 'Task Management', '2023-05-23', '2023-05-23', 'Rahul', 'Non-billable', '2024-06-04 08:22:19', '2024-06-04 08:22:19'),
+(5, 2, 'Task data', '2023-05-23', '2023-05-23', 'Rahul', 'Non-billable', '2024-06-04 08:22:29', '2024-06-04 08:22:29'),
+(8, 3, 'Task Funding', '2023-05-23', '2023-05-23', 'Ramesh', 'Non-billable', '2024-06-04 08:31:44', '2024-06-04 08:31:44'),
+(9, 2, 'Task Funding', '2023-05-23', '2023-05-23', 'Ramesh', 'Non-billable', '2024-06-04 08:32:38', '2024-06-04 08:32:38'),
+(10, 3, 'Task Funding', '2023-05-23', '2023-05-23', 'Ramesh', 'Non-billable', '2024-06-04 08:34:40', '2024-06-04 08:34:40'),
+(11, 3, 'Task Manager', '2023-05-23', '2023-05-23', 'Ramesh', 'Non-billable', '2024-06-04 08:34:52', '2024-06-04 08:34:52'),
+(12, 1, 'Shadab', '2024-06-01', '2024-06-29', 'Alice Smith', 'Billable', '2024-06-04 09:13:08', '2024-06-04 09:13:08'),
+(13, 2, 'Rahul', '2024-06-11', '2024-06-22', 'Alice Smith', 'Billable', '2024-06-04 11:18:42', '2024-06-04 11:18:42');
 
 -- --------------------------------------------------------
 
@@ -70,7 +74,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `createdAt`, `updatedAt`) VALUES
-(1, 'Shadab', 'shadab@gmail.com', '13321846cd47fd79358cda440751108a', '2024-06-03 09:02:08', '2024-06-03 09:02:08');
+(1, 'Shadab', 'shadab@gmail.com', '13321846cd47fd79358cda440751108a', '2024-06-03 09:02:08', '2024-06-03 09:02:08'),
+(2, 'Rahul', 'rahul@gmail.com', '1298815fd9e0a06860203eefd188c354', '2024-06-04 06:05:01', '2024-06-04 06:05:01'),
+(3, 'Ramesh', 'ramesh@gmail.com', 'b6aa2ba4d5da750d50907a06f31e74fc', '2024-06-04 08:30:14', '2024-06-04 08:30:14');
 
 --
 -- Indexes for dumped tables
@@ -80,7 +86,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `createdAt`, `updatedAt`
 -- Indexes for table `project_details`
 --
 ALTER TABLE `project_details`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `users`
@@ -96,13 +103,23 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `project_details`
 --
 ALTER TABLE `project_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `project_details`
+--
+ALTER TABLE `project_details`
+  ADD CONSTRAINT `project_details_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

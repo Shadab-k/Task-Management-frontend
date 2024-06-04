@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
+import { RiAdminFill } from "react-icons/ri";
 
 const Navbar = () => {
   const token = useSelector((state) => state.AuthSlice.token);
@@ -29,7 +30,7 @@ const Navbar = () => {
     if (token) {
       fetchData();
     }
-  }, [token]);  
+  }, [token]);
 
   const handleOnLogout = () => {
     dispatch({ type: "Auth/SET_TOKEN", payload: "" });
@@ -40,8 +41,11 @@ const Navbar = () => {
       <div className="container-fluid">
         <h1 className="navbar-brand">Task Management</h1>
 
-        <div>
-          <p className="user-heading">Welcome {name}</p>
+        <div className="user-heading">
+          <p>
+            <RiAdminFill className="mx-1" />
+            Welcome {name}
+          </p>
         </div>
 
         <form className="d-flex">

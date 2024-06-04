@@ -5,7 +5,7 @@ const Footer = () => {
     // <!-- Footer Component -->
     <>
       {" "}
-      <div className="text-center my-2 bg-primary">
+      <div className="text-center bg-secondary">
         <div className="flex-grow-1"></div>
         <div className="d-flex align-items-center">
           <div className="align-middle m-auto align-items-baseline">
