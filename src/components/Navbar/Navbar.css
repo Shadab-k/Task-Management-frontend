@@ -13,6 +13,27 @@
 .user-heading{
     color: aliceblue;
     margin-top: 20px;
-    margin-left: 1100px;
     cursor: pointer;
+}
+
+.humber_btn{
+   cursor: pointer;
+   background: #FFF;
+   border-radius: 3px;
+   width: 46px;
+   height: 38px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 1em;
+}
+.humber_btn svg{
+    width: 100% !important;
+}
+.humber_btn svg path{
+    width: 100%;
+}
+.right_sider_option{
+    display: flex;
+    gap: 20px;
 }

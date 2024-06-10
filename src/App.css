@@ -12,3 +12,52 @@ main{
   height: 100%;
   overflow-x: hidden;
 }
+
+.container_wrap{
+  width: 100%;
+  /* margin-top: 80px; */
+  transition: all .24s ease-in-out;
+  padding: 0;
+  position: relative;
+  min-height: 100vh;
+  background: #e4eefd;
+}
+.container_wrap .aside_bar{
+  position: absolute;
+  top: 0;
+  /* height: calc(100vh - 75px); */
+  left: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: 9;
+  background: #10223c;
+  width: 245px;
+}
+
+.container_wrap .inner_container {
+  padding: 0;
+  width: calc(100% - 245px);
+  float: right;
+  position: relative;
+  height: 100vh;
+}
+/* .container_wrap.open{
+  width: 100%;
+ 
+} */
+.container_wrap.open .inner_container{
+  width: 100%;
+}
+.container_wrap.open .aside_bar{
+  width: 245px;
+}
+.container_wrap.open .aside_bar{
+  left: -245px;
+}
+
+
+.footer_bot{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #7bc17a;
+}

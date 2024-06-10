@@ -5,6 +5,8 @@ import Signin from "../components/Signin/Signin";
 import ProjectDetails from "../components/ProjectDetails/ProjectDetails";
 import { useSelector } from "react-redux";
 import Main from "../components/Main/Main";
+import Home from "../components/Home/Home";
+import TaskDetails from "../components/TaskDetails/TaskDetails";
 
 export default function Routers() {
   const { token } = useSelector((state) => state.AuthSlice);
@@ -22,7 +24,7 @@ export default function Routers() {
               <Route path="/" element={<Main />} />
               <Route
                 path="/project-details"
-                element={<ProjectDetails />}
+                element={<TaskDetails />}
               />{" "}
             </Route>
           )}

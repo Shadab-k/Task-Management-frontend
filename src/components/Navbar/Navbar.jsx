@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RiAdminFill } from "react-icons/ri";
-
+import { RxHamburgerMenu } from "react-icons/rx";
 const Navbar = () => {
   const token = useSelector((state) => state.AuthSlice.token);
   const [name, setName] = useState("");
@@ -37,28 +37,35 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-light nav-color w-100%">
-      <div className="container-fluid">
-        <h1 className="navbar-brand">Task Management</h1>
+    <>
+      {" "}
+      <nav className="navbar navbar-light nav-color">
+        
+        <div className="container-fluid">
+          <h1 className="navbar-brand">Task Management</h1>
 
-        <div className="user-heading">
-          <p>
-            <RiAdminFill className="mx-1" />
-            Welcome {name}
-          </p>
+          <div className="right_sider_option d-flex align-items-center justify-content-between">
+          <div className="user-heading">
+            <p>
+              <RiAdminFill className="mx-1" />
+              Welcome {name}
+            </p>
+          </div>
+
+          <form className="d-flex">
+            <button
+              className="btn btn-danger"
+              onClick={handleOnLogout}
+              type="button"
+            >
+              Logout
+            </button>
+          </form>
+          <div className="humber_btn"><RxHamburgerMenu /></div>
+          </div>
         </div>
-
-        <form className="d-flex">
-          <button
-            className="btn btn-danger"
-            onClick={handleOnLogout}
-            type="button"
-          >
-            Logout
-          </button>
-        </form>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 

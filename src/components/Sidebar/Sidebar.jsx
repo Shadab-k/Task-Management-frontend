@@ -5,30 +5,21 @@ import { useSelector } from "react-redux";
 import { FaTasks } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 
-const Sidebar = ({ onSelectProject, setHasData, submittedProject, onShowModal }) => {
-  const [showModal, setShowModal]= useState(false)
+const Sidebar = ({ onShowModal, onSelectProject }) => {
   const [credentials, setCredentials] = useState([]);
   const token = useSelector((state) => state.AuthSlice.token);
 
-  // const handleOnShowModal=()=>{
-  //   setShowModal(true)
-  // }
-
   const fetchedData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/get-project-form-details`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`http://localhost:5000/api/get-project-form-details`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setCredentials(data);
-      // setHasData(data.length > 0);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -38,47 +29,32 @@ const Sidebar = ({ onSelectProject, setHasData, submittedProject, onShowModal })
     fetchedData();
   }, []);
 
+  // Add a useEffect to fetch data when a project is submitted
   useEffect(() => {
-    if (submittedProject) {
-      fetchedData();
-    }
-  }, [submittedProject]);
+    fetchedData();
+  }, [onSelectProject]); // Fetch data when a project is selected
 
   return (
-    <div
-      className="sidebar offcanvas-start show"
-      tabIndex="-1"
-      id="offcanvasExample"
-      aria-labelledby="offcanvasExampleLabel"
-      style={{ visibility: "visible" }}
-    >
+    <div className="sidebar" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style={{ visibility: "visible" }}>
       <div className="offcanvas-body">
         <div className="title_head">
           <h5 className="text-white">
-            {" "}
             <FaTasks className="mx-2" />
             Project List
-            <button className="btn-sm plus mx-4" onClick={onShowModal}>+</button>
+            <button className="btn-sm plus mx-4" onClick={onShowModal}>
+              +
+            </button>
           </h5>
         </div>
-
         <div className="list_items">
           <ul>
             {credentials.length > 0 ? (
               credentials.map((item) => (
-                <div key={item.id}>
-                  <li>
-                    <Link
-                      to="#"
-                      onClick={() => {
-                        onSelectProject(item);
-                        setHasData(true);
-                      }}
-                    >
-                      <GoDotFill className="text-success "/>{item.project_name}
-                    </Link>
-                  </li>
-                </div>
+                <li key={item.project_id}>
+                  <Link to="#" onClick={() => onSelectProject(item)}>
+                    {item.project_name}
+                  </Link>
+                </li>
               ))
             ) : (
               <div>No data available</div>
@@ -91,6 +67,10 @@ const Sidebar = ({ onSelectProject, setHasData, submittedProject, onShowModal })
 };
 
 export default Sidebar;
+
+
+
+
 
 // import React, { useEffect, useState } from "react";
 // import "./Sidebar.css";

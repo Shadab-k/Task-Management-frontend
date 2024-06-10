@@ -1,20 +1,30 @@
-import React from 'react';
-import './NavbarBelow.css'; // Import the CSS file
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import "./NavbarBelow.css";
 
-const NavbarBelow = () => {
+const NavbarBelow = ({ selectedProjectName, onShowTaskModal, disableAddTask }) => {
+  // Use useEffect to trigger an update when selectedProjectName changes
+  useEffect(() => {
+    // Code to handle the update
+    // Here, you might want to update the state or trigger a re-render
+  }, [selectedProjectName]); // This will re-run the effect whenever selectedProjectName changes
+
   return (
-    <nav className="navbar_below">
-      <div className="logo">
-        <h1>Logo</h1>
+    <>
+      <div className="top_header border-bottom">
+        <div className="header_title">
+          <h1>{selectedProjectName ? selectedProjectName : " "}</h1>
+        </div>
       </div>
-      <ul className="nav-links">
-        <li><Link href="#">Home</Link></li>
-        <li><Link href="#">About</Link></li>
-        <li><Link href="#">Services</Link></li>
-        <li><Link href="#">Contact</Link></li>
-      </ul>
-    </nav>
+      <div className="mt-3">
+        <button 
+          className="btn btn-primary" 
+          onClick={onShowTaskModal} 
+          disabled={disableAddTask}
+        >
+          Add Task
+        </button>
+      </div>
+    </>
   );
 };
 

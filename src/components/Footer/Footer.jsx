@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     // <!-- Footer Component -->
     <>
-      {" "}
-      <div className="text-center bg-secondary">
+    <footer className="footer_bot">
+      <div className="text-center">
         <div className="flex-grow-1"></div>
         <div className="d-flex align-items-center">
           <div className="align-middle m-auto align-items-baseline">
@@ -14,6 +14,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      </footer>
     </>
   );
 };

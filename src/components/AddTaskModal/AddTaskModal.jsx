@@ -1,13 +1,20 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import "./Modal.css";
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import "./AddTaskModal.css"
 
-const Modal = ({ onClose, onProjectCreate }) => {
-  const token = useSelector((state) => state.AuthSlice.token);
+const AddTaskModal = ({onTaskCreate, onClose}) => {
+    const token = useSelector((state) => state.AuthSlice.token);
+    
+//     const [showTaskModal, setShowTaskModal]= useState(false)
 
-  const [project, setProject] = useState({
-    projectName: "",
-    projectDescription: "",
+//   const showAddTaskModal=()=>{
+//     setShowTaskModal(true)
+
+//   }
+
+
+  const [task, setTask] = useState({
+    taskName: "",
     startDate: "",
     endDate: "",
     status: "",
@@ -24,45 +31,44 @@ const Modal = ({ onClose, onProjectCreate }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProject({ ...project, [name]: value });
+    setTask({ ...task, [name]: value });
   };
 
   const handleOnStatusSelect = (e) => {
-    setProject({ ...project, status: e.target.value });
+    setTask({ ...task, status: e.target.value });
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/api/project-post-details",
+        "http://localhost:5000/api/add-task",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "auth-token": `Bearer ${token}`,
           },
-          body: JSON.stringify(project),
+          body: JSON.stringify(task),
         }
       );
 
       if (response.ok) {
-        alert("Project details submitted successfully");
-        const newProject = await response.json();
-        onProjectCreate(newProject); // Notify parent component
-        setProject({
-          projectName: "",
-          projectDescription: "",
+        alert("Task details submitted successfully");
+        const newTask = await response.json();
+        onTaskCreate(newTask); // Notify parent component
+        setTask({
+          taskName: "",
           startDate: "",
           endDate: "",
           status: "",
           developer: "",
         });
       } else {
-        alert("Unable to save data");
+        alert("Unable to save task data");
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting Task details:", error);
     }
   };
 
@@ -71,7 +77,7 @@ const Modal = ({ onClose, onProjectCreate }) => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Create Project</h5>
+            <h5 className="modal-title">Create Task</h5>
             <button
               type="button"
               className="btn-close"
@@ -82,31 +88,16 @@ const Modal = ({ onClose, onProjectCreate }) => {
             <form onSubmit={handleOnSubmit}>
               <div className="mb-3">
                 <label htmlFor="projectName" className="form-label">
-                  Project Name
+                  Task Name
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   id="projectName"
                   name="projectName"
-                  value={project.projectName}
+                  value={task.taskName}
                   onChange={handleChange}
                   placeholder="Enter project name"
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="projectDescription" className="form-label">
-                  Project Description
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="projectDescription"
-                  name="projectDescription"
-                  value={project.projectDescription}
-                  onChange={handleChange}
-                  placeholder="Enter project description"
                   required
                 />
               </div>
@@ -119,7 +110,7 @@ const Modal = ({ onClose, onProjectCreate }) => {
                   className="form-control"
                   id="startDate"
                   name="startDate"
-                  value={project.startDate}
+                  value={task.startDate}
                   onChange={handleChange}
                   required
                 />
@@ -133,7 +124,7 @@ const Modal = ({ onClose, onProjectCreate }) => {
                   className="form-control"
                   id="endDate"
                   name="endDate"
-                  value={project.endDate}
+                  value={task.endDate}
                   onChange={handleChange}
                   required
                 />
@@ -146,7 +137,7 @@ const Modal = ({ onClose, onProjectCreate }) => {
                   className="form-control"
                   id="developer"
                   name="developer"
-                  value={project.developer}
+                  value={task.developer}
                   onChange={handleChange}
                   required
                 >
@@ -168,7 +159,7 @@ const Modal = ({ onClose, onProjectCreate }) => {
                   className="form-control"
                   id="status"
                   name="status"
-                  value={project.status}
+                  value={task.status}
                   onChange={handleOnStatusSelect}
                   required
                 >
@@ -180,14 +171,14 @@ const Modal = ({ onClose, onProjectCreate }) => {
                 </select>
               </div>
               <button type="submit" className="btn btn-dark">
-                Create Project
+                Create Task
               </button>
             </form>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default AddTaskModal
