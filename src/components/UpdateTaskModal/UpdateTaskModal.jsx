@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import "./AddTaskModal.css";
+// import "./UpdateTaskModal.css";
 
-const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
+const UpdateTaskModal = ({ onTaskCreate, onClose, projectId }) => {
   const token = useSelector((state) => state.AuthSlice.token);
 
   const [task, setTask] = useState({
@@ -31,11 +31,11 @@ const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
     setTask({ ...task, status: e.target.value });
   };
 
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = async (e,taskId ) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5000/api/add-task/${projectId}`, // Use projectId from props
+        `http://localhost:5000/api/update-task/${taskId}`, // Use projectId from props
         {
           method: "POST",
           headers: {
@@ -50,14 +50,7 @@ const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
         alert("Task details submitted successfully");
         const newTask = await response.json();
         onTaskCreate(newTask); // Notify parent component
-        setTask({
-          taskName: "",
-          taskDescription:"",
-          startDate: "",
-          endDate: "",
-          status: "",
-          developer: "",
-        });
+       
       } else {
         alert("Unable to save task data");
       }
@@ -71,7 +64,7 @@ const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Create Task</h5>
+            <h5 className="modal-title">Update Task</h5>
             <button
               type="button"
               className="btn-close"
@@ -182,7 +175,7 @@ const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
                 </select>
               </div>
               <button type="submit" className="btn btn-dark">
-                Create Task
+                Update Task
               </button>
             </form>
           </div>
@@ -192,4 +185,4 @@ const AddTaskModal = ({ onTaskCreate, onClose, projectId }) => {
   );
 };
 
-export default AddTaskModal;
+export default UpdateTaskModal;

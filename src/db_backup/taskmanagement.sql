@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 02:33 PM
+-- Generation Time: Jun 12, 2024 at 02:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -80,9 +80,15 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`task_id`, `project_id`, `task_name`, `task_description`, `start_date`, `end_date`, `developer`, `status`, `createdAt`, `updatedAt`) VALUES
-('a2ad80ef-7d40-49aa-b45f-8ee34df476e9', '8cfdb4fb-7214-4cee-8bc3-8fba7f0b7464', 'Generate Invoice', 'Hi im task of Generate Invoice', '2023-05-15', '2023-05-26', 'Rahul', 'Non-billable', '2024-06-10 10:13:31', '2024-06-10 10:13:31'),
-('c3f336da-4b85-4223-b339-8e61abbc9ec6', '8cfdb4fb-7214-4cee-8bc3-8fba7f0b7464', 'Sprite', 'Hi im task of spriete', '2023-05-15', '2023-05-26', 'Rahul', 'Non-billable', '2024-06-10 10:12:57', '2024-06-10 10:12:57'),
-('d08f3afd-8ac5-4282-be3b-0a369258e931', '8cfdb4fb-7214-4cee-8bc3-8fba7f0b7464', 'Generate Mobile', 'Generate Mobile', '2023-05-15', '2023-05-26', 'Rahul', 'Non-billable', '2024-06-10 10:18:14', '2024-06-10 10:18:14');
+('1595d395-08fb-4e1c-b8f1-e95b59ad4ccc', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Task Data1', 'Hi This is Task Data 1', '2024-06-08', '2024-06-10', 'Alice Smith', 'Billable', '2024-06-12 08:03:26', '2024-06-12 08:03:26'),
+('254ae293-2c74-411a-b5ea-a3f7034e7dab', '1369d094-935c-4209-a2a1-ce3982d40c9d', 'Data Hide', 'This is task description of Data hide', '2023-05-15', '2023-05-26', 'Shadab', 'Non-billable', '2024-06-12 07:00:29', '2024-06-12 07:00:29'),
+('562b0dd1-d4d6-4627-9d50-9dd330d92ebf', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Formation', 'This is task description of Formation', '2023-05-15', '2023-05-26', 'Shadab', 'Non-billable', '2024-06-12 09:25:31', '2024-06-12 09:25:31'),
+('6ab2ef43-eb50-456c-ad12-378c68bc0cd6', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Mantra', 'This is task description ofMantra', '2023-05-15', '2023-05-26', 'Shadab', 'Non-billable', '2024-06-12 07:38:10', '2024-06-12 07:38:10'),
+('70f56cd0-7faa-4dad-975a-ebe7feb5f309', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Rbc', 'Hi This is RBC ', '2024-06-07', '2024-06-21', 'John Doe', 'Billable', '2024-06-12 08:10:00', '2024-06-12 08:10:00'),
+('a2ad80ef-7d40-49aa-b45f-8ee34df476e9', '8cfdb4fb-7214-4cee-8bc3-8fba7f0b7464', 'Invoice Generator1111', 'Hi im task of Invoice Generator1111', '2022-12-22', '2023-11-24', 'Rahul,Shadab', 'Non-Billable', '2024-06-10 10:13:31', '2024-06-12 10:42:08'),
+('bdf790ac-fe9b-4a25-a5e9-11a2da6734f8', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Task Data', 'Hi This is Task Data ', '2024-06-08', '2024-06-22', 'Emily Brown', 'Billable', '2024-06-12 07:56:40', '2024-06-12 07:56:40'),
+('dc86714b-f8f8-4ac1-a18d-6903f46dd52e', '8183ac9e-5a47-4826-948d-19b530227f5f', 'Abc', 'Hi This is ABC ', '2024-06-07', '2024-06-07', 'Alice Smith', 'Billable', '2024-06-12 08:09:36', '2024-06-12 08:09:36'),
+('f7cae70a-17e0-48fc-a008-86ecd2fce5fb', '2d29075d-3f04-4f97-bd3d-2316cfb76381', 'Data Hide', 'This is task description of Data hide', '2023-05-15', '2023-05-26', 'Rahul', 'Non-billable', '2024-06-12 07:37:14', '2024-06-12 07:37:14');
 
 -- --------------------------------------------------------
 

@@ -8,13 +8,18 @@ import Modal from "../Modal/Modal";
 import ProjectDetails from "../ProjectDetails/ProjectDetails";
 import { useSelector } from "react-redux";
 import AddTaskModal from "../AddTaskModal/AddTaskModal";
+import TaskDetails from "../TaskDetails/TaskDetails";
 
 const Main = () => {
   const [showModal, setShowModal] = useState(false);
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [submittedProject, setSubmittedProject] = useState(null);
+  const [submittedTask, setSubmittedTask] = useState(null);
   const [isFirstLogin, setIsFirstLogin] = useState(false);
+  const [projectId, setProjectId] = useState('');
+  const [taskId, setTaskId] = useState('');
+
   const [projects, setProjects] = useState([]);
   const token = useSelector((state) => state.AuthSlice.token);
 
@@ -43,9 +48,13 @@ const Main = () => {
             }
           );
           const projectData = await projectRes.json();
+          console.log("Projects Data", projectData);
           setProjects(projectData);
+
           if (projectData.length > 0) {
             setSelectedProject(projectData[projectData.length - 1]); // Set the last project
+            setProjectId(projectData[projectData.length - 1].project_id);
+            console.log("Project Id", projectData[projectData.length - 1].project_id);
           }
         }
       } catch (error) {
@@ -55,6 +64,12 @@ const Main = () => {
 
     fetchUserData();
   }, [submittedProject, token]);
+
+  useEffect(() => {
+    if (selectedProject) {
+      setProjectId(selectedProject.project_id);
+    }
+  }, [selectedProject]);
 
   const handleOnShowModal = () => {
     setShowModal(true);
@@ -74,6 +89,7 @@ const Main = () => {
 
   const handleProjectSelect = (project) => {
     setSelectedProject(project);
+    setProjectId(project.project_id);
   };
 
   const handleProjectCreate = (project) => {
@@ -82,10 +98,13 @@ const Main = () => {
     setIsFirstLogin(false);
   };
 
-  const handleTaskCreate = () => {
+  const handleTaskCreate = (task) => {
+    setSubmittedTask(task)
     setShowAddTaskModal(false);
     setIsFirstLogin(false);
   };
+
+  console.log("Projects", projects);
 
   return (
     <main>
@@ -98,6 +117,7 @@ const Main = () => {
 
       {showAddTaskModal && (
         <AddTaskModal
+          projectId={projectId} // Pass projectId to AddTaskModal
           onClose={handleOnHideAddTaskModal}
           onTaskCreate={handleTaskCreate}
         />
@@ -123,7 +143,12 @@ const Main = () => {
             {isFirstLogin ? (
               <CreateForm onShowModal={handleOnShowModal} />
             ) : (
-              selectedProject && <ProjectDetails project={selectedProject} />
+              selectedProject && (
+                <>
+                  <ProjectDetails project={selectedProject} />
+                  <TaskDetails projectId={projectId} taskId={taskId} submittedTask={submittedTask} />
+                </>
+              )
             )}
           </div>
         </div>
@@ -134,3 +159,4 @@ const Main = () => {
 };
 
 export default Main;
+
